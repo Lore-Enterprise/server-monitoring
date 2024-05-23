@@ -11,22 +11,22 @@ export const App = () => {
     const [httpResponseData, setHttpResponseData] = useState<HttpResponseDataType>({})
     console.log(httpResponseData)
 
-    const [wsResponseData, setWsResponseData] = useState<WsResponseDataType | null>(null);
+    const [wsResponseData, setWsResponseData] = useState<WsResponseDataType>({});
     console.log(wsResponseData)
 
     useEffect(() => {
         let ignore = false;
 
         fetch("http://localhost:8080/containers")
-        .then(resolve => resolve.json())
-        .then(data => {
-            if (!ignore) {
-                setHttpResponseData(data)
-                const initValueWsData: EmptyWsResponseDataType = createInitValueWsData(data)
-                setWsResponseData(initValueWsData)
-            }
-        })
-        .catch(error => console.error(`An error occurred in the HTTP request. ${error.name}: ${error.message}`))
+            .then(resolve => resolve.json())
+            .then(data => {
+                if (!ignore) {
+                    setHttpResponseData(data)
+                    const initValueWsData: EmptyWsResponseDataType = createInitValueWsData(data)
+                    setWsResponseData(initValueWsData)
+                }
+            })
+            .catch(error => console.error(`An error occurred in the HTTP request. ${error.name}: ${error.message}`))
 
         return () => {
             ignore = true;
@@ -50,7 +50,8 @@ export const App = () => {
                     if (!prevState) return prevState; // handle case where prevState is null
                     return {
                         ...prevState,
-                        [message.name]: [...(prevState[message.name] || []).slice(0, 9), message]
+                        // Add a new message to the end of the array and limit the length to 10 elements
+                        [message.name]: [...(prevState[message.name] || []), message].slice(-10) // message
                     };
                 });
             };
