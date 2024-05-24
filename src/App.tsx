@@ -1,9 +1,11 @@
 import {InfoSection, Wrapper} from "./styles/app.ts";
-import {useEffect, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import {createInitValueWsData} from "./utils/utils.ts";
 import {EmptyWsResponseDataType, HttpResponseDataType, WsResponseDataType} from "./types/types.ts";
+import {generateUniqueID} from "./utils/generateID.ts";
+import {TablePanel} from "./components/table/TablePanel.tsx";
 
-const headTableData: string[] = ["Network Traffic", "Server name", "OS", "CPU usage", "Memory usage"]
+export const WsDataContext = createContext<WsResponseDataType>({});
 
 export const App = () => {
     console.log("RENDER COMPONENT")
@@ -46,12 +48,14 @@ export const App = () => {
                 const message = JSON.parse(event.data);
                 console.log(`WebSocket message for ${containerName}:`, message);
 
+                const updatedMessage = { ...message, id: generateUniqueID() };
+
                 setWsResponseData(prevState => {
                     if (!prevState) return prevState; // handle case where prevState is null
                     return {
                         ...prevState,
                         // Add a new message to the end of the array and limit the length to 10 elements
-                        [message.name]: [...(prevState[message.name] || []), message].slice(-10) // message
+                        [updatedMessage.name]: [...(prevState[updatedMessage.name] || []), updatedMessage].slice(-10) // message
                     };
                 });
             };
@@ -80,27 +84,12 @@ export const App = () => {
     }, [httpResponseData]);
 
     return (
-        <Wrapper>
-            <InfoSection>
-                <table>
-                    <thead>
-                    <tr>
-                        {headTableData.map(headName => (
-                            <th key={headName}>{headName}</th>
-                        ))}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td></td>
-                        <td>kakish</td>
-                        <td>Linux</td>
-                        <td>124000</td>
-                        <td>85/100</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </InfoSection>
-        </Wrapper>
+        <WsDataContext.Provider value={wsResponseData}>
+            <Wrapper>
+                <InfoSection>
+                    <TablePanel />
+                </InfoSection>
+            </Wrapper>
+        </WsDataContext.Provider>
     )
 }
