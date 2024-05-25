@@ -4,17 +4,18 @@ import {createInitValueWsData} from "./utils/utils.ts";
 import {EmptyWsResponseDataType, HttpResponseDataType, WsResponseDataType} from "./types/types.ts";
 import {generateUniqueID} from "./utils/generateID.ts";
 import {TablePanel} from "./components/table/TablePanel.tsx";
+import {TrafficPanel} from "./components/traffic-panel/TrafficPanel.tsx";
 
 export const WsDataContext = createContext<WsResponseDataType>({});
 
 export const App = () => {
-    console.log("RENDER COMPONENT")
+    console.log("RENDER APP COMPONENT")
 
     const [httpResponseData, setHttpResponseData] = useState<HttpResponseDataType>({})
-    console.log(httpResponseData)
+    // console.log(httpResponseData)
 
     const [wsResponseData, setWsResponseData] = useState<WsResponseDataType>({});
-    console.log(wsResponseData)
+    // console.log(wsResponseData)
 
     useEffect(() => {
         let ignore = false;
@@ -87,6 +88,7 @@ export const App = () => {
         <WsDataContext.Provider value={wsResponseData}>
             <Wrapper>
                 <InfoSection>
+                    <TrafficPanel />
                     <TablePanel />
                 </InfoSection>
             </Wrapper>

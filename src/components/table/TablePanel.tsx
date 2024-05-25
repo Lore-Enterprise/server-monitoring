@@ -1,17 +1,21 @@
 import {useContext} from "react";
 import {WsDataContext} from "../../App.tsx";
 import {MemoryCell} from "./cells/MemoryCell.tsx";
+import {Table} from "./styles/tablePanel.ts";
 
-const headTableData: string[] = ["Network Traffic", "Server name", "OS", "CPU usage", "Memory usage"]
+const headTableData: string[] = ["Server name", "OS", "CPU usage", "Memory usage"]
 
 export const TablePanel = () => {
+    console.log("RENDER TABLE COMPONENT")
+
     const wsResponseData = useContext(WsDataContext)
+    console.log(wsResponseData)
 
     return (
-        <table>
+        <Table>
             <thead>
                 <tr>
-                    {headTableData.map(headName => (
+                    { headTableData.map(headName => (
                         <th key={headName}>{headName}</th>
                     ))}
                 </tr>
@@ -20,8 +24,7 @@ export const TablePanel = () => {
                 { Object.keys(wsResponseData).map(keyName => (
                     wsResponseData[keyName].slice(-1).map((data) => (
                         <tr key={data.id}>
-                            <td></td>
-                            <td>{data.name}</td>
+                            <td>{keyName}</td>
                             <td>{data.os}</td>
                             <td>{data.cpu ? data.cpu.usage : "null"}</td>
                             <MemoryCell data={data} />
@@ -29,6 +32,6 @@ export const TablePanel = () => {
                     ))
                 ))}
             </tbody>
-        </table>
+        </Table>
     )
 }
