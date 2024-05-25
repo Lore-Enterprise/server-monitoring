@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+    flex: 0 0 500px;
+`
+
 export const Title = styled.h2`
     font-weight: bold;
     margin-bottom: 10px;

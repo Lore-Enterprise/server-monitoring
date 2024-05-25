@@ -87,7 +87,7 @@ export const App = () => {
     return (
         <WsDataContext.Provider value={wsResponseData}>
             <Wrapper>
-                <InfoSection>
+                <InfoSection $content="Uptime: 10:02:00">
                     <TrafficPanel />
                     <TablePanel />
                 </InfoSection>

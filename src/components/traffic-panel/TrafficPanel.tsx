@@ -1,10 +1,10 @@
-import {Icon, NetworkValue, ServerValue, Title, TrafficInfo, TrafficValue} from "./styles/trafficPanel.ts";
+import {Icon, NetworkValue, ServerValue, Title, TrafficInfo, TrafficValue, Wrapper} from "./styles/trafficPanel.ts";
 import { FaArrowUpLong, FaArrowDownLong } from "react-icons/fa6";
 import {baseStyles} from "../../styles/baseStyles.ts";
 
 export const TrafficPanel = () => {
     return (
-        <div style={{ flex: "0 0 500px" }}>
+        <Wrapper>
             <Title>Network Traffic</Title>
             <TrafficInfo>
                 <NetworkValue>
@@ -27,6 +27,6 @@ export const TrafficPanel = () => {
                 </ServerValue>
             </TrafficInfo>
             <div style={{background: "lightgray", height: "120px"}}></div>
-        </div>
+        </Wrapper>
     )
 }

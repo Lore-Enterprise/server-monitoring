@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
     padding: 20px;
 `
 
-export const InfoSection = styled.section`
+export const InfoSection = styled.section<{ $content?: string; }>`
     background-color: ${baseStyles.colors.bgWhite};
     border-radius: 16px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
@@ -18,7 +18,7 @@ export const InfoSection = styled.section`
     position: relative;
     
     &::before {
-        content: "Uptime: 10:02:00";
+        content: "${props => props.$content ?? 'Uptime: '}";
         position: absolute;
         top: 0;
         right: 0;
