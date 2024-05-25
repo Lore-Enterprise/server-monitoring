@@ -4,10 +4,11 @@ import {baseStyles} from "../../../styles/baseStyles.ts";
 export const Table = styled.table`
     width: 100%;
     height: fit-content;
+    border-collapse: collapse;
     
     & th {
         text-align: left;
-        padding-bottom: 10px;
+        padding-bottom: 12px;
         font-size: 1.125rem;
         width: 25%;
         
@@ -20,6 +21,11 @@ export const Table = styled.table`
     
     & tbody {
         color: ${baseStyles.colors.textDarkGray};
+    }
+    
+    & tbody tr.exited {
+        background-color: ${baseStyles.colors.bgGray};
+        opacity: 0.5;
     }
     
     & td {
