@@ -3,6 +3,8 @@ import { FaArrowUpLong, FaArrowDownLong } from "react-icons/fa6";
 import {baseStyles} from "../../styles/baseStyles.ts";
 
 export const TrafficPanel = () => {
+    console.log("RENDER TrafficPanel COMPONENT")
+
     return (
         <Wrapper>
             <Title>Network Traffic</Title>

@@ -10,22 +10,17 @@ export const Table = styled.table`
         text-align: left;
         padding-bottom: 12px;
         font-size: 1.125rem;
-        width: 25%;
-        
-        &:nth-child(2)  { width: 20%; }
-
-        &:nth-child(3) { width: 27%; }
-        
-        &:nth-child(4) { width: 28%; }
+        //width: 25%;
+        //
+        //&:nth-child(2)  { width: 20%; }
+        //
+        //&:nth-child(3) { width: 27%; }
+        //
+        //&:nth-child(4) { width: 28%; }
     }
     
     & tbody {
         color: ${baseStyles.colors.textDarkGray};
-    }
-    
-    & tbody tr.exited {
-        background-color: ${baseStyles.colors.bgGray};
-        opacity: 0.5;
     }
     
     & td {

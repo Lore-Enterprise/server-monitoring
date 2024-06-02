@@ -1,7 +1,7 @@
 import {InfoSection, Wrapper} from "./styles/app.ts";
 import {createContext, useEffect, useState} from "react";
-import {createInitValueWsData} from "./utils/utils.ts";
-import {EmptyWsResponseDataType, HttpResponseDataType, WsResponseDataType} from "./types/types.ts";
+import {createInitValueWsData, getContainersId} from "./utils/utils.ts";
+import {HttpResponseDataType, WsResponseDataType} from "./types/types.ts";
 import {generateUniqueID} from "./utils/generateID.ts";
 import {TablePanel} from "./components/table/TablePanel.tsx";
 import {TrafficPanel} from "./components/traffic-panel/TrafficPanel.tsx";
@@ -11,21 +11,22 @@ export const WsDataContext = createContext<WsResponseDataType>({});
 export const App = () => {
     console.log("RENDER APP COMPONENT")
 
-    const [httpResponseData, setHttpResponseData] = useState<HttpResponseDataType>({})
-    // console.log(httpResponseData)
+    const [httpResponseData, setHttpResponseData] = useState<HttpResponseDataType[]>([])
+    console.log(httpResponseData)
 
     const [wsResponseData, setWsResponseData] = useState<WsResponseDataType>({});
-    // console.log(wsResponseData)
+    console.log(wsResponseData)
 
     useEffect(() => {
         let ignore = false;
 
-        fetch("http://localhost:8080/containers")
+        fetch("http://localhost:8080/containers/list")
             .then(resolve => resolve.json())
             .then(data => {
                 if (!ignore) {
+                    console.log("I'M MAKE REQUEST")
                     setHttpResponseData(data)
-                    const initValueWsData: EmptyWsResponseDataType = createInitValueWsData(data)
+                    const initValueWsData: WsResponseDataType = createInitValueWsData(data)
                     setWsResponseData(initValueWsData)
                 }
             })
@@ -39,7 +40,7 @@ export const App = () => {
     useEffect(() => {
         console.log("МЫ РАБОТАЕМ С СОКЕТОМ")
         const openWebSocket = (containerName: string) => {
-            const ws = new WebSocket(`ws://localhost:8080${containerName}/stats`);
+            const ws = new WebSocket(`ws://localhost:8080/containers/${containerName}/stats`);
 
             ws.onopen = () => {
                 console.log(`Connected to: ${containerName}`);
@@ -47,16 +48,16 @@ export const App = () => {
 
             ws.onmessage = (event) => {
                 const message = JSON.parse(event.data);
-                console.log(`WebSocket message for ${containerName}:`, message);
+                // console.log(`WebSocket message for ${containerName}:`, message);
 
-                const updatedMessage = { ...message, id: generateUniqueID() };
+                const updatedMessage = { ...message, keyId: generateUniqueID() };
 
                 setWsResponseData(prevState => {
                     if (!prevState) return prevState; // handle case where prevState is null
                     return {
                         ...prevState,
                         // Add a new message to the end of the array and limit the length to 10 elements
-                        [updatedMessage.name]: [...(prevState[updatedMessage.name] || []), updatedMessage].slice(-10) // message
+                        [updatedMessage.name]: [...(prevState[updatedMessage.name] || []), updatedMessage].slice(-10)
                     };
                 });
             };
@@ -73,8 +74,8 @@ export const App = () => {
         };
 
         // Opening websockets for all containers after receiving data
-        if (Object.keys(httpResponseData).length > 0) {
-            const containerNames = Object.keys(httpResponseData);
+        if (httpResponseData) {
+            const containerNames = getContainersId(httpResponseData);
             const wsConnections = containerNames.map((name) => openWebSocket(name));
 
             // Closing websockets when unmounting a component

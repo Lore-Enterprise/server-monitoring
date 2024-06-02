@@ -7,11 +7,11 @@ export const MemoryCell = ({data}: {data: ContainerType}) => {
 
     return (
         <td>
-            { data.memory ?
-                <ProgressBarWrapper title={`${data.memory.usage} bit / ${data.memory.max} bit`}>
-                    <ProgressBar max={data.memory.max} value={data.memory.usage} />
+            { (data.memory_stats.limit && data.memory_stats.max_usage) ?
+                <ProgressBarWrapper title={`${data.memory_stats.max_usage} bit / ${data.memory_stats.limit} bit`}>
+                    <ProgressBar max={data.memory_stats.limit} value={data.memory_stats.max_usage} />
                     <ProgressBarLabel>
-                        <span>{formatBits(data.memory.usage)}</span> / {formatBits(data.memory.max)}
+                        <span>{formatBits(data.memory_stats.max_usage)}</span> / {formatBits(data.memory_stats.limit)}
                     </ProgressBarLabel>
                 </ProgressBarWrapper>
                 : "null"

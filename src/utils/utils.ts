@@ -1,10 +1,20 @@
-import {EmptyWsResponseDataType, HttpResponseDataType} from "../types/types.ts";
+import {HttpResponseDataType, WsResponseDataType} from "../types/types.ts";
 
-export const createInitValueWsData = (data: HttpResponseDataType) => {
-    const result: EmptyWsResponseDataType = {};
+export const createInitValueWsData = (data: HttpResponseDataType[]) => {
+    const result: WsResponseDataType = {};
 
-    for (const key in data) {
-        result[key] = [];
+    for (const value of data) {
+        result[value.Names[0]] = [];
+    }
+
+    return result
+}
+
+export const getContainersId = (data: HttpResponseDataType[]) => {
+    const result: string[] = [];
+
+    for (const value of data) {
+        result.push(value.Id)
     }
 
     return result
