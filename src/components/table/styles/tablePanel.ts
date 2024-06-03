@@ -10,13 +10,17 @@ export const Table = styled.table`
         text-align: left;
         padding-bottom: 12px;
         font-size: 1.125rem;
-        //width: 25%;
-        //
-        //&:nth-child(2)  { width: 20%; }
-        //
-        //&:nth-child(3) { width: 27%; }
-        //
-        //&:nth-child(4) { width: 28%; }
+        width: 20%;
+
+        &:nth-child(1)  { width: 22%; }
+
+        &:nth-child(2)  { width: 12%; }
+
+        &:nth-child(3) { width: 24%; }
+
+        &:nth-child(4) { width: 18%; }
+
+        &:nth-child(5) { width: 24%; }
     }
     
     & tbody {
@@ -26,6 +30,14 @@ export const Table = styled.table`
     & td {
         height: 46px;
         vertical-align: center;
+        overflow: hidden;
+        
+        & > span {
+            display: block;
+            width: 100%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     }
     
     & tr:not(:last-child) td {

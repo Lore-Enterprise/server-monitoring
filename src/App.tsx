@@ -7,6 +7,7 @@ import {TablePanel} from "./components/table/TablePanel.tsx";
 import {TrafficPanel} from "./components/traffic-panel/TrafficPanel.tsx";
 
 export const WsDataContext = createContext<WsResponseDataType>({});
+export const HttpDataContext = createContext<HttpResponseDataType[]>([]);
 
 export const App = () => {
     console.log("RENDER APP COMPONENT")
@@ -86,13 +87,15 @@ export const App = () => {
     }, [httpResponseData]);
 
     return (
-        <WsDataContext.Provider value={wsResponseData}>
-            <Wrapper>
-                <InfoSection $content="Uptime: 10:02:00">
-                    <TrafficPanel />
-                    <TablePanel />
-                </InfoSection>
-            </Wrapper>
-        </WsDataContext.Provider>
+        <HttpDataContext.Provider value={httpResponseData}>
+            <WsDataContext.Provider value={wsResponseData}>
+                <Wrapper>
+                    <InfoSection $content="Uptime: 10:02:00">
+                        <TrafficPanel />
+                        <TablePanel />
+                    </InfoSection>
+                </Wrapper>
+            </WsDataContext.Provider>
+        </HttpDataContext.Provider>
     )
 }
