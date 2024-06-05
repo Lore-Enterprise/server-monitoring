@@ -26,5 +26,6 @@ export const InfoSection = styled.section<{ $content?: string; }>`
         border-bottom-left-radius: 10px;
         padding: 4px 12px 6px 10px;
         font-weight: bold;
+        font-size: 0.875rem;
     }
 `

@@ -5,6 +5,7 @@ export const Table = styled.table`
     width: 100%;
     height: fit-content;
     border-collapse: collapse;
+    cursor: default;
     
     & th {
         text-align: left;
@@ -16,11 +17,11 @@ export const Table = styled.table`
 
         &:nth-child(2)  { width: 12%; }
 
-        &:nth-child(3) { width: 24%; }
+        &:nth-child(3) { width: 23%; }
 
-        &:nth-child(4) { width: 18%; }
+        &:nth-child(4) { width: 21%; }
 
-        &:nth-child(5) { width: 24%; }
+        &:nth-child(5) { width: 22%; }
     }
     
     & tbody {
@@ -30,13 +31,13 @@ export const Table = styled.table`
     & td {
         height: 46px;
         vertical-align: center;
-        overflow: hidden;
         
         & > span {
+            max-width: 180px;
             display: block;
-            width: 100%;
             text-overflow: ellipsis;
             white-space: nowrap;
+            overflow: hidden;
         }
     }
     
