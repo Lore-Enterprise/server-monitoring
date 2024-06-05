@@ -11,7 +11,6 @@ const headTableData: string[] = ["Name", "Pids", "Image", "CPU usage", "Memory u
 const getCurrentTime = () => new Date().getTime()
 
 const cpuUsage = (data: ContainerType): number => {
-    // console.warn("WORK WITH FUNCTION")
     const cpu_delta = data.cpu_stats.cpu_usage.total_usage - data.precpu_stats.cpu_usage.total_usage
     const system_cpu_delta = (data.cpu_stats.system_cpu_usage ?? 0) - (data.precpu_stats.system_cpu_usage ?? 0)
     const number_cpus = data.cpu_stats.online_cpus ?? 0

@@ -2,6 +2,8 @@ import {ResponsiveLine} from "@nivo/line";
 import {CoordsType} from "../../types/types.ts";
 
 export const LineChartWithoutLegend = ({ chartData }: { chartData: CoordsType[] }) => {
+    // console.log("RENDER LineChartWithoutLegend COMPONENT")
+
     return (
         <ResponsiveLine
             data={[
@@ -15,7 +17,7 @@ export const LineChartWithoutLegend = ({ chartData }: { chartData: CoordsType[] 
             yScale={{
                 type: 'linear',
                 min: 0,
-                max: 100,
+                max: "auto",
                 stacked: false,
                 reverse: false
             }}
@@ -23,7 +25,7 @@ export const LineChartWithoutLegend = ({ chartData }: { chartData: CoordsType[] 
             axisRight={null}
             axisBottom={null}
             axisLeft={null}
-            lineWidth={1.5}
+            lineWidth={1}
             colors="#000000"
             enableGridX={false}
             enableGridY={false}

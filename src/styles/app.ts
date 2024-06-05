@@ -5,9 +5,12 @@ export const Wrapper = styled.div`
     background-color: ${baseStyles.colors.bgGray};
     min-height: 100vh;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 `
 
 export const InfoSection = styled.section<{ $content?: string; }>`
+    justify-self: flex-end;
     background-color: ${baseStyles.colors.bgWhite};
     border-radius: 16px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
@@ -15,17 +18,4 @@ export const InfoSection = styled.section<{ $content?: string; }>`
     display: flex;
     gap: 30px;
     overflow: hidden;
-    position: relative;
-    
-    &::before {
-        content: "${props => props.$content ?? 'Uptime: '}";
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: ${baseStyles.colors.bgLightGreen};
-        border-bottom-left-radius: 10px;
-        padding: 4px 12px 6px 10px;
-        font-weight: bold;
-        font-size: 0.875rem;
-    }
 `
