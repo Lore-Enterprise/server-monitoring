@@ -1,5 +1,5 @@
 import {InfoSection, Wrapper} from "./styles/app.ts";
-import {createContext, useEffect, useState} from "react";
+import {createContext, useEffect, useMemo, useState} from "react";
 import {createInitValueWsData, getContainersId} from "./utils/utils.ts";
 import {HttpResponseDataType, WsResponseDataType} from "./types/types.ts";
 import {generateUniqueID} from "./utils/generateID.ts";
@@ -86,9 +86,12 @@ export const App = () => {
         }
     }, [httpResponseData]);
 
+    const memoizedHttpResponseData = useMemo(() => httpResponseData, [httpResponseData]);
+    const memoizedWsResponseData = useMemo(() => wsResponseData, [wsResponseData]);
+
     return (
-        <HttpDataContext.Provider value={httpResponseData}>
-            <WsDataContext.Provider value={wsResponseData}>
+        <HttpDataContext.Provider value={memoizedHttpResponseData}>
+            <WsDataContext.Provider value={memoizedWsResponseData}>
                 <Wrapper>
                     <InfoSection $content="Uptime: 10:02:00">
                         <TrafficPanel />

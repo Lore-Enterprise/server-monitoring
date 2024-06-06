@@ -17,7 +17,7 @@ export const LineChartWithoutLegend = ({ chartData }: { chartData: CoordsType[] 
             yScale={{
                 type: 'linear',
                 min: 0,
-                max: "auto",
+                max: 100,
                 stacked: false,
                 reverse: false
             }}

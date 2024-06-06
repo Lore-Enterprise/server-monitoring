@@ -1,9 +1,23 @@
 import {Icon, NetworkValue, ServerValue, Title, TrafficInfo, TrafficValue, Wrapper} from "./styles/trafficPanel.ts";
 import { FaArrowUpLong, FaArrowDownLong } from "react-icons/fa6";
 import {baseStyles} from "../../styles/baseStyles.ts";
+import {useContext} from "react";
+import {WsDataContext} from "../../App.tsx";
+import {formatBytes} from "../../utils/utils.ts";
 
 export const TrafficPanel = () => {
     console.log("RENDER TrafficPanel COMPONENT")
+
+    const wsResponseData = useContext(WsDataContext)
+
+    let sum = 0
+    Object.keys(wsResponseData).forEach((key) => {
+        wsResponseData[key].slice(-1).map(wsData => {
+            sum += wsData?.networks?.eth0?.rx_bytes ?? 0
+        })
+    })
+
+    const trafficValue = formatBytes(sum, 1000)
 
     return (
         <Wrapper>
@@ -13,7 +27,7 @@ export const TrafficPanel = () => {
                     <Icon>
                         <FaArrowUpLong />
                     </Icon>
-                    <TrafficValue>518.00<span>Mbs</span></TrafficValue>
+                    <TrafficValue>{trafficValue.value}<span>{trafficValue.unit}</span></TrafficValue>
                 </NetworkValue>
                 <ServerValue>
                     <p>
