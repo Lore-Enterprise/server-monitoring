@@ -151,12 +151,12 @@ type NetworkType = {
 }
 
 //--- LineChartDataType----------------------------------------------
-export type LineChartDataType = Array<{
-    id:   string | number
-    data: CoordsType[]
-}>
-
 export type CoordsType = {
     x: number | string | Date
     y: number | string | Date
+}
+
+export type LineChartType = {
+    rx_bytes: CoordsType[],
+    tx_bytes: CoordsType[]
 }

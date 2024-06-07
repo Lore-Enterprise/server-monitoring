@@ -4,6 +4,7 @@ import {baseStyles} from "../../styles/baseStyles.ts";
 import {useContext} from "react";
 import {WsDataContext} from "../../App.tsx";
 import {formatBytes} from "../../utils/utils.ts";
+import {LineChart} from "../charts/LineChart.tsx";
 
 export const TrafficPanel = () => {
     console.log("RENDER TrafficPanel COMPONENT")
@@ -42,7 +43,9 @@ export const TrafficPanel = () => {
                     </p>
                 </ServerValue>
             </TrafficInfo>
-            <div style={{background: "lightgray", height: "120px"}}></div>
+            <div style={{height: "120px"}}>
+                <LineChart />
+            </div>
         </Wrapper>
     )
 }

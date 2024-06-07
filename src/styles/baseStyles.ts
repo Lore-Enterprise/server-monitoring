@@ -12,6 +12,7 @@ export const baseStyles: BaseStylesType = {
         bgDarkGreen: "#4E9E78",
         bgDarkOrange: "#EA942A",
         bgLightOrange: "#FFA63F",
+        bgLightOrangeWithOpacity: "#FFE3C6",
         bgWhite: "#FFFFFF",
         bgGray: "#EFF1F3",
         bgRed: "#C45854",

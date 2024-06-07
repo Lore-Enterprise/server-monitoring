@@ -10,6 +10,7 @@ export const createInitValueWsData = (data: HttpResponseDataType[]) => {
     return result
 }
 
+
 export const getContainersId = (data: HttpResponseDataType[]) => {
     const result: string[] = [];
 
@@ -19,6 +20,7 @@ export const getContainersId = (data: HttpResponseDataType[]) => {
 
     return result
 }
+
 
 export const formatBytes = (bytes: number, divider: number): {value: number, unit: string} => {
     const units = ['B', 'KB', 'MB', 'GB', 'TB'];
@@ -31,4 +33,11 @@ export const formatBytes = (bytes: number, divider: number): {value: number, uni
     const convertedValue = parseFloat((bytes / Math.pow(divider, i)).toFixed(2));
 
     return {value: convertedValue, unit: units[i]};
+}
+
+
+export const localeCurrentTime = () => {
+    const date = new Date();
+
+    return date.toLocaleTimeString()
 }
