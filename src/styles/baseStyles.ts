@@ -9,13 +9,13 @@ export const baseStyles: BaseStylesType = {
         // background
         bgLightGreen: "#AEEDCD",
         bgGreen: "#78DCA4",
-        bgDarkGreen: "#4E9E78",
+        bgDarkGreen: "#48af7e",
         bgDarkOrange: "#EA942A",
         bgLightOrange: "#FFA63F",
         bgLightOrangeWithOpacity: "#FFE3C6",
         bgWhite: "#FFFFFF",
         bgGray: "#EFF1F3",
-        bgRed: "#C45854",
+        bgRed: "#c94a46",
 
         // text
         textDarkBlue: "#192334",

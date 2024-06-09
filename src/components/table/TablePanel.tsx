@@ -26,7 +26,6 @@ export const TablePanel = () => {
     const httpResponseData = useContext(HttpDataContext)
 
     const [chartData, setChartData] = useState<CoordsType[]>(initialLineChartData)
-    console.log(chartData)
 
     useEffect(() => {
         if (httpResponseData.length > 0) {
@@ -56,6 +55,7 @@ export const TablePanel = () => {
             </thead>
             <tbody>
                 { httpResponseData.map(httpData => (
+                    httpData.State === "running" &&
                     wsResponseData[httpData.Names[0]].slice(-1).map((data) => (
                         <tr key={data.keyId}>
                             <td>{httpData.Names[0]}</td>

@@ -9,7 +9,7 @@ export const Table = styled.table`
     
     & th {
         text-align: left;
-        padding-bottom: 12px;
+        padding-bottom: 10px;
         font-size: 1.125rem;
         width: 20%;
 

@@ -7,14 +7,14 @@ export const Wrapper = styled.div`
     padding: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
 `
 
 export const InfoSection = styled.section<{ $content?: string; }>`
-    justify-self: flex-end;
     background-color: ${baseStyles.colors.bgWhite};
     border-radius: 16px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-    padding: 28px 28px 16px;
+    padding: 24px 24px 14px;
     display: flex;
     gap: 30px;
     overflow: hidden;
