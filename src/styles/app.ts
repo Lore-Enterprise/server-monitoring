@@ -14,7 +14,7 @@ export const InfoSection = styled.section<{ $content?: string; }>`
     background-color: ${baseStyles.colors.bgWhite};
     border-radius: 16px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-    padding: 28px;
+    padding: 28px 28px 16px;
     display: flex;
     gap: 30px;
     overflow: hidden;

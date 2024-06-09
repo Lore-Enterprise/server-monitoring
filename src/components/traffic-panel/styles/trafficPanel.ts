@@ -15,7 +15,7 @@ export const TrafficInfo = styled.div`
     gap: 4px;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 `
 
 //---NetworkValue--------------------------------

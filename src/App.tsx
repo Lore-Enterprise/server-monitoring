@@ -49,7 +49,7 @@ export const App = () => {
 
             ws.onmessage = (event) => {
                 const message = JSON.parse(event.data);
-                // console.log(`WebSocket message for ${containerName}:`, message);
+                console.log(`WebSocket message for ${containerName}:`, message.name);
 
                 const updatedMessage = { ...message, keyId: generateUniqueID() };
 

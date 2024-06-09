@@ -26,6 +26,7 @@ export const TablePanel = () => {
     const httpResponseData = useContext(HttpDataContext)
 
     const [chartData, setChartData] = useState<CoordsType[]>(initialLineChartData)
+    console.log(chartData)
 
     useEffect(() => {
         if (httpResponseData.length > 0) {

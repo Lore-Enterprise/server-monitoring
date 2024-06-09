@@ -43,7 +43,7 @@ export const TrafficPanel = () => {
                     </p>
                 </ServerValue>
             </TrafficInfo>
-            <div style={{height: "120px"}}>
+            <div style={{height: "140px"}}>
                 <LineChart />
             </div>
         </Wrapper>

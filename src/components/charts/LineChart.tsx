@@ -3,6 +3,7 @@ import {baseStyles} from "../../styles/baseStyles.ts";
 import {useContext, useEffect, useState} from "react";
 import {WsDataContext} from "../../App.tsx";
 import {LineChartType} from "../../types/types.ts";
+import {localeCurrentTime} from "../../utils/utils.ts";
 
 export const LineChart = () => {
     const wsResponseData = useContext(WsDataContext)
@@ -12,65 +13,57 @@ export const LineChart = () => {
         tx_bytes: []
     })
 
+    console.log(chartData)
+
     useEffect(() => {
         let rxSum = 0
         let txSum = 0
 
         Object.keys(wsResponseData).forEach(wsKey => {
             wsResponseData[wsKey].slice(-1).forEach(wsData => {
-                console.log(wsData.networks?.eth0?.rx_bytes ?? 0)
-
                 rxSum += wsData.networks?.eth0?.rx_bytes ?? 0
                 txSum += wsData.networks?.eth0?.tx_bytes ?? 0
             })
         })
 
-        console.log(`
-        rxSum: ${rxSum}
-        txSum: ${txSum}
-        `)
+        const currentTime = localeCurrentTime()
+
+        setChartData(prevState => {
+            // Checking if a record exists with the current time
+            const lastRx = prevState.rx_bytes[prevState.rx_bytes.length - 1];
+            const lastTx = prevState.tx_bytes[prevState.tx_bytes.length - 1];
+
+            // If a record with the current time already exists, return the previous state without changes
+            if (lastRx?.x === currentTime || lastTx?.x === currentTime) {
+                return prevState;
+            }
+
+            return {
+                ...prevState,
+                rx_bytes: [...prevState.rx_bytes, { x: currentTime, y: rxSum }].slice(-20),
+                tx_bytes: [...prevState.tx_bytes, { x: currentTime, y: txSum }].slice(-20)
+            };
+        });
     }, [wsResponseData]);
 
     return (
         <ResponsiveLine
             data={[
                 {
-                    id: "rx_bytes (Input)",
-                    data: [
-                        { "x": 1, "y": 0 },
-                        { "x": 2, "y": 5 },
-                        { "x": 3, "y": 0 },
-                        { "x": 4, "y": 20 },
-                        { "x": 5, "y": 0 },
-                        { "x": 6, "y": 10 },
-                        { "x": 7, "y": 0 },
-                        { "x": 8, "y": 33 },
-                        { "x": 9, "y": 0 },
-                        { "x": 10, "y": 50 }
-                    ],
+                    id: "Data sent",
+                    data: chartData.tx_bytes,
                 },
                 {
-                    id: "tx_bytes (Output)",
-                    data: [
-                        { "x": 1, "y": 80 },
-                        { "x": 2, "y": 25 },
-                        { "x": 3, "y": 0 },
-                        { "x": 4, "y": 75 },
-                        { "x": 5, "y": 0 },
-                        { "x": 6, "y": 40 },
-                        { "x": 7, "y": 0 },
-                        { "x": 8, "y": 80 },
-                        { "x": 9, "y": 0 },
-                        { "x": 10, "y": 100 }
-                    ],
+                    id: "Data received",
+                    data: chartData.rx_bytes,
                 },
             ]}
-            margin={{ top: 10, right: 10, bottom: 20, left: 10 }}
+            margin={{ top: 10, right: 10, bottom: 40, left: 10 }}
             xScale={{ type: 'point' }}
             yScale={{
                 type: 'linear',
                 min: 0,
-                max: 'auto',
+                max: "auto",
                 stacked: false,
                 reverse: false
             }}
@@ -79,7 +72,7 @@ export const LineChart = () => {
             axisBottom={{
                 tickSize: 5,
                 tickPadding: 5,
-                tickRotation: 0,
+                tickRotation: -30,
                 legend: '',
                 legendOffset: 36,
                 legendPosition: 'middle',
@@ -93,10 +86,10 @@ export const LineChart = () => {
             enableTouchCrosshair={true}
             useMesh={true}
             legends={[]}
-            motionConfig="default"
             enableArea={true}
             areaOpacity={1}
             lineWidth={1}
+            animate={false}
             theme={{
                 grid: {
                     line: {
