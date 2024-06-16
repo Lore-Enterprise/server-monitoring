@@ -5,6 +5,8 @@ import {HttpResponseDataType, WsResponseDataType} from "./types/types.ts";
 import {generateUniqueID} from "./utils/generateID.ts";
 import {TablePanel} from "./components/table/TablePanel.tsx";
 import {TrafficPanel} from "./components/traffic-panel/TrafficPanel.tsx";
+import {ThreeModelSection} from "./components/3D-models/ThreeModelSection.tsx";
+import {Leva} from "leva";
 
 export const WsDataContext = createContext<WsResponseDataType>({});
 export const HttpDataContext = createContext<HttpResponseDataType[]>([]);
@@ -93,10 +95,12 @@ export const App = () => {
         <HttpDataContext.Provider value={memoizedHttpResponseData}>
             <WsDataContext.Provider value={memoizedWsResponseData}>
                 <Wrapper>
-                    <InfoSection $content="Uptime: 10:02:00">
-                        <TrafficPanel />
-                        <TablePanel />
-                    </InfoSection>
+                    <Leva />
+                    <ThreeModelSection />
+                    {/*<InfoSection>*/}
+                    {/*    <TrafficPanel />*/}
+                    {/*    <TablePanel />*/}
+                    {/*</InfoSection>*/}
                 </Wrapper>
             </WsDataContext.Provider>
         </HttpDataContext.Provider>
