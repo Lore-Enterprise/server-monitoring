@@ -97,10 +97,10 @@ export const App = () => {
                 <Wrapper>
                     <Leva />
                     <ThreeModelSection />
-                    {/*<InfoSection>*/}
-                    {/*    <TrafficPanel />*/}
-                    {/*    <TablePanel />*/}
-                    {/*</InfoSection>*/}
+                    <InfoSection>
+                        <TrafficPanel />
+                        <TablePanel />
+                    </InfoSection>
                 </Wrapper>
             </WsDataContext.Provider>
         </HttpDataContext.Provider>
